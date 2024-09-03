@@ -27,6 +27,7 @@ const handler = NextAuth({
           },
         ];
 
+        //// Aqui conectare algun endpoint para validar usuarios del backend
         // const res = await fetch(
         //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
         //   {

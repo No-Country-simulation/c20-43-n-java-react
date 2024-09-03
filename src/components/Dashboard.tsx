@@ -4,19 +4,22 @@ import { useSession } from "next-auth/react";
 const Dashboard = () => {
   const { data: session, status } = useSession();
 
+
   if (status === "loading") {
     return <p>Loading...</p>;
   }
   console.log(session);
 
   return (
-    <div className="">
-      <div className="pt-10">
+    <>
+      
+    <div className="relative 2xl:top-0 xl:top-16">
+
+      <div className="">
         <h1 className="text-2xl">Modulos</h1>
       </div>
 
       <div className="flex flex-col gap-5">
-        
         <div className="bg-pink-200 bg-opacity-20 p-8 rounded-xl shadow-lg ">
           <strong>Clase 1</strong>
           <p>
@@ -43,6 +46,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 export default Dashboard;

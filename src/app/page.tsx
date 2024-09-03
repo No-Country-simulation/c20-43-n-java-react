@@ -15,15 +15,9 @@ export default function Home() {
   if (session) {
     return (
       <>
-        <div className="flex gap-2">
-          <p>Bienvenido de nuevo</p>{" "}
-          <p className="font-medium">{session.user?.name}</p>
+        <div >
+          <Dashboard />
         </div>
-        <button onClick={() => signOut()} className="btn btn-danger">
-          Cerrar Sesion
-        </button>
-
-        <Dashboard />
       </>
     );
   }
@@ -42,11 +36,12 @@ export default function Home() {
           </p>
         </div>
         <div className="flex justify-center items-center gap-2 w-42 p-3 w-38 h-9 bg-pink-200 text-white rounded-md bg-opacity-20">
-          <button onClick={() => signIn()} className="">Aprende ingles ahora</button>
+          <button onClick={() => signIn()} className="">
+            Aprende ingles ahora
+          </button>
           <img src="/arrow-right.png" alt="" />
         </div>
       </div>
     );
   }
 }
-

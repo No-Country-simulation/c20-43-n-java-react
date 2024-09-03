@@ -3,15 +3,18 @@
 @tailwind utilities;
 
 body {
-  margin: 0;
+  /* margin: 0;
   padding: 0;
   background-image: url('/fondoapp4.jpg'); /* Cambia esto por la URL de tu imagen */
-  background-size: cover; /* Asegura que la imagen cubra todo el fondo */
-  background-position: center; /* Centra la imagen */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
-  background-attachment: fixed; /* Hace que el fondo se quede fijo al hacer scroll */
-  min-height: 100vh; /* Asegura que el fondo cubra al menos el 100% de la altura de la pantalla */
-  position: relative;
+  /* background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+  /* background-position: center; Centra la imagen */
+  /* background-repeat: no-repeat; Evita que la imagen se repita */
+  /* background-attachment: fixed; Hace que el fondo se quede fijo al hacer scroll */
+  /* min-height: 100vh; Asegura que el fondo cubra al menos el 100% de la altura de la pantalla */ 
+  /* position: relative; */ 
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
 }
 
 body::before {

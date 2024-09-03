@@ -1,12 +1,13 @@
 import "antd/dist/reset.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Image from "next/image";
 import "./globals.css";
 import SessionAuthProvider from "@/context/SessionAuthProvider";
 import Navbar from "@/components/Navbar";
-import ViewProgress from "@/components/ViewProgress";
-// import ProgressComponent from '@/components/ProgressComponent';
-// import { useSession } from 'next-auth/react';
+import ProgressContainerView from "@/components/ProgressContainerView";
+import NavWelcome from "@/components/NavWelcome";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,13 +24,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-fixed bg-cover bg-center bg-no-repeat ">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/fondoapp4.jpg"
+            alt="Background"
+            layout="fill"
+            objectFit="cover"
+            priority
+            quality={75}
+          />
+        </div>
         <SessionAuthProvider>
           <div className="flex flex-col justify-center items-center min-h-screen">
-            <ViewProgress />
+            <ProgressContainerView />
             <div className="fixed top-0 w-full">
               <Navbar />
             </div>
-            <div className="bg-pink-200 bg-opacity-35 backdrop-blur-lg p-10 rounded-lg shadow-lg max-w-screen-lg w-full relative h-[400px] 2xl:h-[600px] overflow-y-auto lg:top-8 scrollbar flex flex-col justify-center items-center">
+            <div className="bg-pink-200 bg-opacity-35 backdrop-blur-lg p-10 rounded-lg shadow-lg max-w-screen-lg 2xl:w-full xl:w-[900px] xl:h-[400px] relative 2xl:h-[600px] xl:top-16  overflow-y-auto lg:top-8 scrollbar flex flex-col justify-center items-center">
+              {/* <NavWelcome/> */}
               {children}
             </div>
           </div>

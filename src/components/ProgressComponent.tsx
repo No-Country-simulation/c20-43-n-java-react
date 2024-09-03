@@ -11,7 +11,7 @@ const ProgressComponent: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       <h1>Mi progreso</h1>
       <Progress percent={percent} strokeColor="#FF8C9E" />
       {/* <Button onClick={increaseProgress} className="mt-4">
