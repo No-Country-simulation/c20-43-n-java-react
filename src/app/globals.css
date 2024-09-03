@@ -2,32 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  margin: 0;
+  padding: 0;
+  background-image: url('/fondoapp4.jpg'); /* Cambia esto por la URL de tu imagen */
+  background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-attachment: fixed; /* Hace que el fondo se quede fijo al hacer scroll */
+  min-height: 100vh; /* Asegura que el fondo cubra al menos el 100% de la altura de la pantalla */
+  position: relative;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Negro con 50% de opacidad */
+  pointer-events: none; /* Permite que el contenido sea interactivo */
+}
+
+/* Para asegurar que funcione bien en pantallas pequeñas */
+@media only screen and (max-width: 600px) {
+  body {
+    background-size: contain; /* Cambia a contain para pantallas pequeñas si cover no se ve bien */
   }
 }
+
+
+  .scrollbar {
+    scrollbar-width: thin; /* Scrollbar estrecha */
+    scrollbar-color: #743e79b0 #1c1b6dc9; /* Color del scrollbar y del track */
+  }
+  
+  .scrollbar::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar para navegadores basados en WebKit */
+  }
+  
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4a5568; /* Color de la barra del scrollbar */
+    border-radius: 10px; /* Bordes redondeados para la barra */
+  }
+  
+  .scrollbar::-webkit-scrollbar-track {
+    background-color: #edf2f7; /* Color del track del scrollbar */
+  }
