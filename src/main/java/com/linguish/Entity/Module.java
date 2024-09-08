@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity(name = "module")
+// @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

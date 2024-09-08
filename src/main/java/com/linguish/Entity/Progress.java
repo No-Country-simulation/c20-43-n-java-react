@@ -5,7 +5,8 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity (name = "proggress")
+@Entity (name = "progress")
+// @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
