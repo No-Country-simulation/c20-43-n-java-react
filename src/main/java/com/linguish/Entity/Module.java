@@ -1,9 +1,8 @@
 package com.linguish.Entity;
 
-import com.linguish.Enums.Level;
+import com.linguish.Entity.Enums.Level;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
@@ -11,8 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity(name = "module")
-// @Entity
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -21,12 +19,12 @@ import java.util.Set;
 public class Module {
 
     @Id
-    @Column(name = "moduleId")
+    @Column(name = "module_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long moduleId;
 
     @NotBlank(message = "Este campo es obligatorio")
-    @Column(name = "moduleName", nullable = false)
+    @Column(name = "module_name", nullable = false)
     private String moduleName;
 
     @NotBlank(message = "Este campo es obligatorio")
@@ -36,10 +34,9 @@ public class Module {
     @Column(name = "startDate", nullable = false)
     private Date startDate;
 
-    @Column(name = "moduleCompletedDate", nullable = false)
+    @Column(name = "module_completed_date", nullable = false)
     private Date moduleCompletedDate;
 
-    @NotNull(message = "Este campo es obligatorio")
     @Column(name = "Level", nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<Level> level = new HashSet<>();

@@ -9,8 +9,7 @@ import lombok.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "user")
-// @Entity
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,7 +18,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @Column(name = "userId")
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
@@ -38,7 +37,7 @@ public class User {
     private String password;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "registerDate")
+    @Column(name = "register_date")
     private Date registerDate;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

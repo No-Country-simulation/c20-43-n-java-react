@@ -1,4 +1,4 @@
-package com.linguish.Enums;
+package com.linguish.Entity.Enums;
 
 public enum Type {
     FILLGAPS, MULTIPLECHOICE, TRUEFALSE
