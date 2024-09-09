@@ -31,9 +31,9 @@ public class ModuleServiceImpl implements IModuleService {
     
     @Override
     public String saveModule(Module module) throws IOException {
-        Module newModule = moduleRepository.save(module);
-        // newModule.getLevel().add(Level.valueOf(module.getLevel()));
-        if (newModule == null) {
+        Module newModule = module;
+        newModule.getLevel().add(Level.valueOf(module.getLevel().toString()));
+        if (moduleRepository.save(newModule) == null) {
             throw new IllegalStateException("Error al guardar en la BD");
         }
         return "Se guardó correctamente el Modúlo";
