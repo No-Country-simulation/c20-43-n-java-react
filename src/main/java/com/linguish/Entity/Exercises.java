@@ -49,3 +49,4 @@ public class Exercises {
     @JoinColumn(name = "module_id", nullable = false)
     private Module module;
 }
+
