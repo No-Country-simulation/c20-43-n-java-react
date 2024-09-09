@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.linguish.Entity.Module;
+import com.linguish.Entity.Enums.Level;
 import com.linguish.Interface.IModuleService;
 import com.linguish.Repository.ModuleRepository;
 
@@ -31,6 +32,7 @@ public class ModuleServiceImpl implements IModuleService {
     @Override
     public String saveModule(Module module) throws IOException {
         Module newModule = moduleRepository.save(module);
+        // newModule.getLevel().add(Level.valueOf(module.getLevel()));
         if (newModule == null) {
             throw new IllegalStateException("Error al guardar en la BD");
         }
@@ -45,7 +47,7 @@ public class ModuleServiceImpl implements IModuleService {
         updatedModule.setDescription(module.getDescription());
         updatedModule.setStartDate(module.getStartDate());
         updatedModule.setModuleCompletedDate(module.getModuleCompletedDate());
-        updatedModule.setLevel(module.getLevel());
+        // updatedModule.getLevel().add(Level.valueOf(module.getLevel()));
         
         // updatedModule.setExercises(module);
         Module moduleUpdated = moduleRepository.save(updatedModule);

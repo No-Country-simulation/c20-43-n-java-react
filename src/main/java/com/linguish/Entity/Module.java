@@ -40,10 +40,12 @@ public class Module {
     @Column(name = "Level", nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<Level> level = new HashSet<>();
+    // private Set<Level> level;
 
     @OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Exercises> exercises;
 
     @OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Progress> progressList;
+
 }

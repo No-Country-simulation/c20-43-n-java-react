@@ -30,8 +30,8 @@ public class ExerciseServiceImpl implements IExercisesService {
     
     @Override
     public String saveExercises(Exercises exercises) throws IOException {
-        Exercises exercise = exercisesRepository.save(exercises);
-        if (exercise == null) {
+        Exercises newExercise = exercisesRepository.save(exercises);
+        if (newExercise == null) {
             throw new IllegalStateException("No se encuentra el ejercicio en la BD");
         }
         return "Se guardó correctamente el ejercicio";
@@ -39,17 +39,18 @@ public class ExerciseServiceImpl implements IExercisesService {
     
     @Override
     public void updateExercisesById(Long id, Exercises exercises) throws IOException {
-        Exercises exercise = exercisesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró el ejercicio en la BD"));
-        exercise.setExerciseName(null);
-        exercise.setText(null);
-        exercise.setKeys(null);
-        exercise.setLevel(id);
-        exercise.setExerciseType(null);
-        exercise.setCompleted(null);
-        exercise.setCompletedDate(null);
-
-        
-
+        Exercises exerciseUpdated = exercisesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró el ejercicio en la BD"));
+        exerciseUpdated.setExerciseName(null);
+        exerciseUpdated.setText(null);
+        exerciseUpdated.setKeys(null);
+        exerciseUpdated.setLevel(id);
+        exerciseUpdated.setExerciseType(null);
+        exerciseUpdated.setCompleted(null);
+        exerciseUpdated.setCompletedDate(null);
+        Exercises exercise = exercisesRepository.save(exerciseUpdated);
+        if (exercise == null) {
+            throw new IllegalStateException("Ocurrio un error en la actualización");
+        }
     }
 
     @Override

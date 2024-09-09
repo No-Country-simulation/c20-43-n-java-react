@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.linguish.Entity.User;
 import com.linguish.Interface.IUserService;
-import com.linguish.Repository.ExercisesRepository;
 import com.linguish.Repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -40,12 +39,11 @@ public class UserServiceImpl implements IUserService {
     
     @Override
     public void updateUserById(Long id, User user) throws IOException {
-        
         User updatedUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado en la BD"));
-        updatedUser.setEmail(null);
-        updatedUser.setPassword(null);
-        updatedUser.setUserName(null);
-        updatedUser.setProgressList(null);
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setPassword(user.getPassword());
+        updatedUser.setUserName(user.getUserName());
+        updatedUser.setProgressList(user.getProgressList());
         User usuario = userRepository.save(updatedUser);
         if (usuario == null) {
             throw new IllegalStateException("Error: No se pudo actualizar el usuario");

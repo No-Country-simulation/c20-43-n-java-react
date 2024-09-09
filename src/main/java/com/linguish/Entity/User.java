@@ -22,17 +22,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NotBlank(message = "Este campo es obligatorio")
+    // @NotBlank(message = "Este campo es obligatorio")
     @Column(name = "name", nullable = false)
     private String userName;
 
-    @NotBlank(message = "Este campo es obligatorio")
-    @Email(message = "Formato de email incorrecto")
+    // @NotBlank(message = "Este campo es obligatorio")
+    // @Email(message = "Formato de email incorrecto")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @NotBlank(message = "Este campo es obligatorio")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$", message = "Mínimo seis caracteres , una mayúscula y un número")
+    // @NotBlank(message = "Este campo es obligatorio")
+    // @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$", message = "Mínimo seis caracteres , una mayúscula y un número")
     @Column(name = "password", nullable = false)
     private String password;
 
