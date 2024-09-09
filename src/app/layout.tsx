@@ -1,15 +1,14 @@
 import "antd/dist/reset.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import Image from "next/image";
 import "./globals.css";
 import SessionAuthProvider from "@/context/SessionAuthProvider";
 import Navbar from "@/components/Navbar";
 import ProgressContainerView from "@/components/ProgressContainerView";
-import NavWelcome from "@/components/NavWelcome";
 
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Linguish App",
