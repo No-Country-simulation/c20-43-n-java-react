@@ -20,22 +20,22 @@ public class Exercises {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long exerciseId;
 
-    @NotBlank(message = "Este campo es obligatorio")
+    // @NotBlank(message = "Este campo es obligatorio")
     @Column(name = "exercise_name", nullable = false)
     private String exerciseName;
 
-    @NotBlank(message = "Este campo es obligatorio")
+    // @NotBlank(message = "Este campo es obligatorio")
     @Column(name = "text", nullable = false)
     private String text;
 
-    @NotBlank(message = "Este campo es obligatorio")
+    // @NotBlank(message = "Este campo es obligatorio")
     @Column(name = "Keys", nullable = false)
     private List<String> keys = new ArrayList<>();
 
     @Column(name = "level", nullable = false)
     private Long level;
 
-    @NotBlank(message = "Este campo es obligatorio")
+    // @NotBlank(message = "Este campo es obligatorio")
     @Column(name = "exerciseType", nullable = false)
     private Set<Type> exerciseType = new HashSet<>();
 

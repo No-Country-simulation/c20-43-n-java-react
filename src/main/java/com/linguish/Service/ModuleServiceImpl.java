@@ -12,9 +12,11 @@ import com.linguish.Repository.ModuleRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ModuleServiceImpl implements IModuleService {
 
     private final ModuleRepository moduleRepository;
@@ -31,9 +33,7 @@ public class ModuleServiceImpl implements IModuleService {
     
     @Override
     public String saveModule(Module module) throws IOException {
-        Module newModule = module;
-        newModule.getLevel().add(Level.valueOf(module.getLevel().toString()));
-        if (moduleRepository.save(newModule) == null) {
+        if (moduleRepository.save(module) == null) {
             throw new IllegalStateException("Error al guardar en la BD");
         }
         return "Se guardó correctamente el Modúlo";

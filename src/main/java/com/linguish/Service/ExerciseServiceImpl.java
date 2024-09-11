@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.linguish.Entity.Exercises;
 import com.linguish.Interface.IExercisesService;
 import com.linguish.Repository.ExercisesRepository;
+import com.linguish.Repository.ModuleRepository;
+import com.linguish.Entity.Module;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ExerciseServiceImpl implements IExercisesService {
 
+    private final ModuleRepository moduleRepository;
     private final ExercisesRepository exercisesRepository;
 
     @Override
@@ -30,6 +33,8 @@ public class ExerciseServiceImpl implements IExercisesService {
     
     @Override
     public String saveExercises(Exercises exercises) throws IOException {
+        Module foundModule = moduleRepository.findById(exercises.getModule().getModuleId()).orElseThrow(() -> new EntityNotFoundException());
+        exercises.setModule(foundModule);
         Exercises newExercise = exercisesRepository.save(exercises);
         if (newExercise == null) {
             throw new IllegalStateException("No se encuentra el ejercicio en la BD");
