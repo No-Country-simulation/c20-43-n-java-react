@@ -7,7 +7,6 @@ import SessionAuthProvider from "@/context/SessionAuthProvider";
 import Navbar from "@/components/Navbar";
 import ProgressContainerView from "@/components/ProgressContainerView";
 
-
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -39,8 +38,8 @@ export default function RootLayout({
             <div className="fixed top-0 w-full">
               <Navbar />
             </div>
+
             <div className="bg-pink-200 bg-opacity-35 backdrop-blur-lg p-10 rounded-lg shadow-lg max-w-screen-lg 2xl:w-full xl:w-[900px] xl:h-[400px] relative 2xl:h-[600px] xl:top-16  overflow-y-auto lg:top-8 scrollbar flex flex-col justify-center items-center">
-              {/* <NavWelcome/> */}
               {children}
             </div>
           </div>
