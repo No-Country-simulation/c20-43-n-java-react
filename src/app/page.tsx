@@ -3,13 +3,14 @@
 import Button from "@/components/ButtonUI";
 import Dashboard from "@/components/Dashboard";
 import Loading from "@/components/Loading";
+import { LoginComponent } from "@/components/LoginComponent";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 // import Image from "next/image";
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -27,6 +28,6 @@ export default function Home() {
   }
 
   if (!session) {
-    router.push("/login")
-  } 
+    router.push("/login");
+  }
 }

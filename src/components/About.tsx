@@ -4,7 +4,7 @@ function About() {
   return (
     <>
       <p className=" relative 2xl:bottom-10 xl:bottom-20 animate-fadeIn text-4xl text-white text-shadow-lg font-bold  pb-10">
-        Quienes Somos?
+      ¿Quiénes somos?
       </p>
       <div>
         <div className="flex justify-center items-start text-center p-10 animate-fadeIn">
