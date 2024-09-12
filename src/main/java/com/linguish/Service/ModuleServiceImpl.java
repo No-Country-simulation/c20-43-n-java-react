@@ -43,7 +43,7 @@ public class ModuleServiceImpl implements IModuleService {
     public void updateModuleById(Long id, Module module) throws IOException {
         Module updatedModule = moduleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encuentra el modulo en la BD"));
 
-        updatedModule.setModuleName(module.getModuleName());
+        // updatedModule.setModuleName(module.getModuleName());
         updatedModule.setDescription(module.getDescription());
         updatedModule.setStartDate(module.getStartDate());
         updatedModule.setModuleCompletedDate(module.getModuleCompletedDate());

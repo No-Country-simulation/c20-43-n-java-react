@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.linguish.Entity.Exercises;
+import com.linguish.Entity.Exercise;
 import com.linguish.Interface.IExercisesService;
 import com.linguish.Repository.ExercisesRepository;
 import com.linguish.Repository.ModuleRepository;
@@ -22,20 +22,20 @@ public class ExerciseServiceImpl implements IExercisesService {
     private final ExercisesRepository exercisesRepository;
 
     @Override
-    public List<Exercises> getExercises() {
+    public List<Exercise> getExercises() {
         return exercisesRepository.findAll();
     }
     
     @Override
-    public Exercises getExercisesById(Long id) {
+    public Exercise getExercisesById(Long id) {
         return exercisesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró el ejercicio en la BD"));
     }
     
     @Override
-    public String saveExercises(Exercises exercises) throws IOException {
-        Module foundModule = moduleRepository.findById(exercises.getModule().getModuleId()).orElseThrow(() -> new EntityNotFoundException());
-        exercises.setModule(foundModule);
-        Exercises newExercise = exercisesRepository.save(exercises);
+    public String saveExercises(Exercise exercises) throws IOException {
+        // Module foundModule = moduleRepository.findById(exercises.getModule().getModuleId()).orElseThrow(() -> new EntityNotFoundException());
+        // exercises.setModule(foundModule);
+        Exercise newExercise = exercisesRepository.save(exercises);
         if (newExercise == null) {
             throw new IllegalStateException("No se encuentra el ejercicio en la BD");
         }
@@ -43,16 +43,16 @@ public class ExerciseServiceImpl implements IExercisesService {
     }
     
     @Override
-    public void updateExercisesById(Long id, Exercises exercises) throws IOException {
-        Exercises exerciseUpdated = exercisesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró el ejercicio en la BD"));
-        exerciseUpdated.setExerciseName(null);
+    public void updateExercisesById(Long id, Exercise exercises) throws IOException {
+        Exercise exerciseUpdated = exercisesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró el ejercicio en la BD"));
+        // exerciseUpdated.setExerciseName(null);
         exerciseUpdated.setText(null);
-        exerciseUpdated.setKeys(null);
+        // exerciseUpdated.setKeys(null);
         exerciseUpdated.setLevel(id);
-        exerciseUpdated.setExerciseType(null);
+        // exerciseUpdated.setExerciseType(null);
         exerciseUpdated.setCompleted(null);
         exerciseUpdated.setCompletedDate(null);
-        Exercises exercise = exercisesRepository.save(exerciseUpdated);
+        Exercise exercise = exercisesRepository.save(exerciseUpdated);
         if (exercise == null) {
             throw new IllegalStateException("Ocurrio un error en la actualización");
         }
@@ -60,7 +60,7 @@ public class ExerciseServiceImpl implements IExercisesService {
 
     @Override
     public void deleteExercisesById(Long id) throws IOException {
-        Exercises exercise = exercisesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró el ejercicio en la BD"));
+        Exercise exercise = exercisesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró el ejercicio en la BD"));
         exercisesRepository.delete(exercise);
     }
 }

@@ -42,7 +42,7 @@ public class ProgressServiceImpl implements IProgressService {
         Progress updatedProgress = progressRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encuentra el modulo en la BD"));
 
         updatedProgress.setUser(progress.getUser());
-        updatedProgress.setModule(progress.getModule());
+        // updatedProgress.setModule(progress.getModule());
         updatedProgress.setPercentageCompleted(progress.getPercentageCompleted());
         updatedProgress.setIsCompleted(progress.getIsCompleted());
         updatedProgress.setLastUpdated(progress.getLastUpdated());

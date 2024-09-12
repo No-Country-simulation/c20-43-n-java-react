@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.linguish.Entity.Exercises;
+import com.linguish.Entity.Exercise;
 import com.linguish.Interface.IExercisesService;
 
 import lombok.AllArgsConstructor;
@@ -26,23 +26,23 @@ public class ExerciseController {
     private final IExercisesService exercisesService;
 
     @GetMapping("/find/all")
-    public List<Exercises> findAllExercises(){
+    public List<Exercise> findAllExercises(){
         
         return exercisesService.getExercises();
     }
     
     @GetMapping("/find/{id}")
-    public Exercises findExercise(@PathVariable Long id){
+    public Exercise findExercise(@PathVariable Long id){
         return exercisesService.getExercisesById(id);
     }
 
     @PostMapping("/save")
-    public String saveExercise(@RequestBody Exercises exercises) throws IOException{
+    public String saveExercise(@RequestBody Exercise exercises) throws IOException{
         return exercisesService.saveExercises(exercises);
     }
 
     @PutMapping("/update/{id}")
-    public void updateExercise(@PathVariable Long id, @RequestBody Exercises exercises) throws IOException{
+    public void updateExercise(@PathVariable Long id, @RequestBody Exercise exercises) throws IOException{
         exercisesService.updateExercisesById(id, exercises);
 
     }

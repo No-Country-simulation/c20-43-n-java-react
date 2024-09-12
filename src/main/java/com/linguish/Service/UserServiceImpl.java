@@ -43,7 +43,7 @@ public class UserServiceImpl implements IUserService {
         updatedUser.setEmail(user.getEmail());
         updatedUser.setPassword(user.getPassword());
         updatedUser.setUserName(user.getUserName());
-        updatedUser.setProgressList(user.getProgressList());
+        // updatedUser.setProgressList(user.getProgressList());
         User usuario = userRepository.save(updatedUser);
         if (usuario == null) {
             throw new IllegalStateException("Error: No se pudo actualizar el usuario");
