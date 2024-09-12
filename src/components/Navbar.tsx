@@ -4,47 +4,64 @@ import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import Image from "next/image";
-import Link from "next/link";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleMenu = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
   return (
     <>
-      <nav className="flex justify-between bg-pink-200 bg-opacity-40 backdrop-blur-lg p-8 shadow-lg">
-        <ul className="flex gap-10 justify-center items-center">
-          <li className="text-3xl font-medium px-10">
-            <a href="/dashboard">Linguish</a>
-          </li>
-          <li>
-            <a href="/dashboard">Inicio</a>
-          </li>
-          <li className="">
-            <a href="">Sobre Nosotros</a>
-          </li>
-          <li className="">
-            <a href="">Rutas</a>
-          </li>
-        </ul>
+      {/* {session ? (
+       
+      ) : (
+        <></>
+      )} */}{" "}
+      <nav className="flex justify-center items-center bg-pink-300 backdrop-blur-sm bg-opacity-30 shadow-lg fixed top-0 h-20 left-0 w-full">
+        <div className="container mx-auto px-6 py-3 flex justify-between items-center">
+          <a
+            href="/"
+            className="text-3xl font-bold text-white  text-shadow"
+          >
+            Linguish
+          </a>
 
-        <ul className="flex gap-10 justify-center items-center px-10">
-          <Link href={session ? "/settings" : "/"}>
-            <li className="relative">
-              <span className="group inline-block">
-                <Image
-                  src={"/settings01.png"}
-                  width={50}
-                  height={50}
-                  alt="image-settings"
-                  className="cursor-pointer group-hover:rotate-180 transition-transform duration-500"
-                />
-              </span>
-            </li>
-          </Link>
+          <div className="hidden md:flex space-x-6">
+            <a
+              href="/dashboard"
+              className="text-lg text-white hover:text-gray-300 transition-colors "
+            >
+              Inicio
+            </a>
+            <a
+              href="/sobreNosotros"
+              className="text-lg text-white hover:text-gray-300 transition-colors "
+            >
+              Sobre Nosotros
+            </a>
+            <a
+              href="/rutas"
+              className="text-lg text-white hover:text-gray-300 transition-colors "
+            >
+              Rutas
+            </a>
+          </div>
+          {/* <div className="flex items-center space-x-4">
+            <Link href={session ? "/settings" : "/"}>
+              <li className="relative">
+                <span className="group inline-block">
+                  <Image
+                    src={"/settings01.png"}
+                    width={50}
+                    height={50}
+                    alt="image-settings"
+                    className="cursor-pointer group-hover:rotate-180 transition-transform duration-500 animate-fadeIn"
+                  />
+                </span>
+              </li>
+            </Link> */}
 
           {/* {session ? (
             
@@ -54,44 +71,82 @@ const Navbar = () => {
           ) : (
             <></>
           )} */}
-
           {session ? (
-            <li>
-              <span onClick={toggleMenu} className="cursor-pointer">
-                {session.user?.email}
-              </span>
-              {isOpen && (
-                <div className="absolute right-10 mt-3 w-48 bg-white border border-gray-200 rounded shadow-lg">
-                  <ul>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      Mi Perfil
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      Configuracion
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <button
-                        onClick={() => signOut()}
-                        className="btn btn-danger"
-                      >
-                        Cerrar Sesion
-                      </button>
-                    </li>
-                  </ul>
+            <div className="flex items-center space-x-4">
+              {/* <FaCog className="text-white text-2xl cursor-pointer hover:text-gray-300 transition-colors" /> */}
+              <div className="relative group">
+                <span className="text-lg text-white cursor-pointer flex items-center gap-5">
+                  {session.user?.email}
+                  <img src={`${session.user?.image}`} alt="profile.png" className="h-10 w-10 rounded-full"/>
+                </span>
+                {/* Dropdown para el email */}
+                <div className=" absolute right-0 hidden group-hover:block bg-black border-purple-300 border text-white shadow-md rounded-lg py-2 w-48">
+                  <a
+                    href="/settings"
+                    className="block px-4 py-2 hover:bg-gray-100 hover:text-black cursor-pointer"
+                  >
+                    Perfil
+                  </a>
+                  <a
+                    onClick={() => signOut()}
+                    className="block px-4 py-2 hover:text-black hover:bg-red-500 cursor-pointer"
+                  >
+                    Cerrar Sesión
+                  </a>
                 </div>
-              )}
-            </li>
+              </div>
+            </div>
           ) : (
             <span className="flex justify-center items-center w-32 h-9 bg-pink-100 text-white rounded-md  bg-opacity-20">
-              <li>
-                <a href="/login">Iniciar Sesion</a>
-              </li>
+              <a href="/login">Iniciar Sesion</a>
             </span>
           )}
-        </ul>
+        </div>
       </nav>
     </>
   );
 };
 
 export default Navbar;
+
+{
+  /* Links */
+}
+
+//   <a
+//     href="/"
+//     className="text-lg text-white hover:text-gray-300 transition-colors"
+//   >
+//     Inicio
+//   </a>
+//   <a
+//     href="/about"
+//     className="text-lg text-white hover:text-gray-300 transition-colors"
+//   >
+//     Sobre Nosotros
+//   </a>
+//   <a
+//     href="/routes"
+//     className="text-lg text-white hover:text-gray-300 transition-colors"
+//   >
+//     Rutas
+//   </a>
+// </div>
+
+// {/* Icono de configuraciones y usuario */}
+// {/* <div >
+//   <FaCog className="text-white text-2xl cursor-pointer hover:text-gray-300 transition-colors" />
+// <div className="relative group">
+//   <span className="text-lg text-white cursor-pointer">
+//     jd3285201@gmail.com
+//   </span>
+//   {/* Dropdown para el email */}
+//   <div className="absolute right-0 hidden group-hover:block bg-white text-black shadow-md rounded-lg mt-2 py-2 w-48">
+//     <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
+//       Perfil
+//     </a>
+//     <a href="/logout" className="block px-4 py-2 hover:bg-gray-100">
+//       Cerrar Sesión
+//     </a>
+//   </div>
+// </div> */}

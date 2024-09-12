@@ -24,7 +24,7 @@ body::before {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Negro con 50% de opacidad */
+  background-color: rgba(0, 0, 0, 0.4); /* Negro con 50% de opacidad */
   pointer-events: none; /* Permite que el contenido sea interactivo */
 }
 
@@ -53,3 +53,23 @@ body::before {
   .scrollbar::-webkit-scrollbar-track {
     background-color: #edf2f7; /* Color del track del scrollbar */
   }
+
+  .main-container {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.main-container:hover {
+  box-shadow: 0px 0px 30px 10px rgba(255, 182, 193, 0.8); /* Efecto de iluminación al hacer hover */
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 15px 5px rgba(255, 182, 193, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px 15px rgba(255, 182, 193, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 15px 5px rgba(255, 182, 193, 0.4);
+  }
+}

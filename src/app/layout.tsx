@@ -1,15 +1,13 @@
 import "antd/dist/reset.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import Image from "next/image";
 import "./globals.css";
 import SessionAuthProvider from "@/context/SessionAuthProvider";
 import Navbar from "@/components/Navbar";
 import ProgressContainerView from "@/components/ProgressContainerView";
-import NavWelcome from "@/components/NavWelcome";
 
-
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Linguish App",
@@ -40,8 +38,7 @@ export default function RootLayout({
             <div className="fixed top-0 w-full">
               <Navbar />
             </div>
-            <div className="bg-pink-200 bg-opacity-35 backdrop-blur-lg p-10 rounded-lg shadow-lg max-w-screen-lg 2xl:w-full xl:w-[900px] xl:h-[400px] relative 2xl:h-[600px] xl:top-16  overflow-y-auto lg:top-8 scrollbar flex flex-col justify-center items-center">
-              {/* <NavWelcome/> */}
+            <div className=" bg-pink-300 backdrop-blur-sm bg-opacity-50 p-10 rounded-lg shadow-lg max-w-screen-lg 2xl:w-full xl:w-[900px] xl:h-[420px] relative 2xl:h-[600px] xl:top-16  overflow-y-auto lg:top-8 scrollbar flex flex-col justify-center items-center">
               {children}
             </div>
           </div>
