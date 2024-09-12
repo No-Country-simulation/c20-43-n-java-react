@@ -39,7 +39,7 @@ export default function RootLayout({
               <Navbar />
             </div>
 
-            <div className="bg-pink-200 bg-opacity-35 backdrop-blur-lg p-10 rounded-lg shadow-lg max-w-screen-lg 2xl:w-full xl:w-[900px] xl:h-[400px] relative 2xl:h-[600px] xl:top-16  overflow-y-auto lg:top-8 scrollbar flex flex-col justify-center items-center">
+            <div className="bg-pink-200 bg-opacity-35 backdrop-blur-lg p-10 rounded-lg shadow-lg max-w-screen-lg 2xl:w-full xl:w-[900px] xl:h-[500px] relative 2xl:h-[600px] overflow-y-auto  scrollbar flex flex-col justify-center items-center">
               {children}
             </div>
           </div>

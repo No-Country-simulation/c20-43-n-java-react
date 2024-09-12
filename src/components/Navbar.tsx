@@ -19,6 +19,8 @@ const Navbar = () => {
 
   return (
     <>
+     {
+     session ? (
       <nav className="flex justify-between bg-pink-200 bg-opacity-40 backdrop-blur-lg p-8 shadow-lg">
         <ul className="flex gap-10 justify-center items-center">
           <li className=" px-10 ">
@@ -110,7 +112,9 @@ const Navbar = () => {
             </span>
           )}
         </ul>
-      </nav>
+      </nav>   
+     ) : <></>
+     }
     </>
   );
 };
