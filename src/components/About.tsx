@@ -33,6 +33,20 @@ function About() {
               alt="joseM.png"
             />
           </div>
+          <div className="w-32 h-32 ">
+            <img
+              className="rounded-full"
+              src="mateoGo.jpg"
+              alt="joseM.png"
+            />
+          </div>
+          <div className="w-32 h-32 ">
+            <img
+              className="rounded-full"
+              src="brayanR.jpg"
+              alt="joseM.png"
+            />
+          </div>
         </div>
       </div>
     </>
