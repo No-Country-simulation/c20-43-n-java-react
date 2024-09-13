@@ -1,13 +1,17 @@
 package com.linguish.Service;
 
-import java.io.IOException;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.linguish.Entity.Progress;
+import com.linguish.Entity.User;
 import com.linguish.Interface.IProgressService;
+import com.linguish.Repository.ModuleRepository;
 import com.linguish.Repository.ProgressRepository;
+import com.linguish.Repository.UserRepository;
+import com.linguish.Entity.Module;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -17,45 +21,42 @@ import lombok.AllArgsConstructor;
 public class ProgressServiceImpl implements IProgressService {
 
     private final ProgressRepository progressRepository;
-    
+    private final ModuleRepository moduleRepository;
+    private final UserRepository userRepository;
+
     @Override
-    public List<Progress> getProgress() {
+    public List<Progress> getRegisters() {
         return progressRepository.findAll();
     }
     
     @Override
-    public Progress getProgressById(Long id) {
+    public Progress getRegisterById(Long id) {
         return progressRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encuentra el modulo en la BD"));
     }
-    
-    @Override
-    public String saveProgress(Progress progress) throws IOException {
-        Progress newProgress = progressRepository.save(progress);
-        if (newProgress == null) {
-            throw new IllegalStateException("Error al guardar el progreso en la BD");
-        }
-        return "Se guardó correctamente";
-    }
-    
-    @Override
-    public void updateProgressById(Long id, Progress progress) throws IOException {
-        Progress updatedProgress = progressRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encuentra el modulo en la BD"));
 
-        updatedProgress.setUser(progress.getUser());
-        // updatedProgress.setModule(progress.getModule());
-        updatedProgress.setPercentageCompleted(progress.getPercentageCompleted());
-        updatedProgress.setIsCompleted(progress.getIsCompleted());
-        updatedProgress.setLastUpdated(progress.getLastUpdated());
-        // updatedProgress.setExercises(Progress);
-        Progress ProgressUpdated = progressRepository.save(updatedProgress);
-        if (ProgressUpdated == null) {
-            throw new IllegalStateException("Error al actualizar la BD");
-        }
+    @Override
+    public Progress saveRegister(Progress newRegister) {
+        Module module = moduleRepository.findById(newRegister.getModuleId()).orElseThrow(() -> new EntityNotFoundException());
+        User user = userRepository.findById(newRegister.getModuleId()).orElseThrow(() -> new EntityNotFoundException());
+        // module.getProgress().add(newRegister);
+        // user.getProgressList().add(newRegister);
+        newRegister.setModule(module);
+        newRegister.setUser(user);
+        return progressRepository.save(newRegister);
+    }
+
+    @Override
+    public Progress updateRegisterById(Long id, Progress updatedRegister) {
+        Progress updatedProgress = progressRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encuentra el modulo en la BD"));
+        updatedProgress.setPercentageCompleted(updatedRegister.getPercentageCompleted());
+        updatedProgress.setIsCompleted(updatedRegister.getIsCompleted());        
+        return progressRepository.save(updatedProgress);
     }
     
     @Override
-    public void deleteProgressById(Long id) throws IOException {
+    public void deleteRegisterById(Long id) {
         Progress deletedProgress = progressRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró el progreso"));
         progressRepository.delete(deletedProgress);
     }
+
 }

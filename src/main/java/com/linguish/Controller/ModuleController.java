@@ -1,9 +1,10 @@
 package com.linguish.Controller;
 
-import java.io.IOException;
 import java.util.*;
 import com.linguish.Entity.Module;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,28 +27,28 @@ public class ModuleController {
     private final IModuleService moduleService;
     
     @GetMapping("/find/all")
-    public List<Module> findAllModules(){
-        return moduleService.getModule();
+    public ResponseEntity<List<Module>> findAllModules(){
+        return new ResponseEntity<>(moduleService.getRegisters(), HttpStatus.OK);
     }
     
     @GetMapping("/find/{id}")
-    public Module findModule(@PathVariable Long id){
-        return moduleService.getModuleById(id);
+    public ResponseEntity<Module> findModule(@PathVariable Long id){
+        return new ResponseEntity<>(moduleService.getRegisterById(id), HttpStatus.OK);
     }
 
     @PostMapping("/save")
-    public String saveModule(@RequestBody Module module) throws IOException{
-        return moduleService.saveModule(module);
+    public ResponseEntity<Module> saveModule(@RequestBody Module module){
+        return new ResponseEntity<>(moduleService.saveRegister(module), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public void updateModule(@PathVariable Long id, @RequestBody Module module) throws IOException{
-        moduleService.updateModuleById(id,module);
+    public ResponseEntity<Module> updateModule(@PathVariable Long id, @RequestBody Module module){
+        return new ResponseEntity<>(moduleService.updateRegisterById(id, module) , HttpStatus.OK);
     }
     
-
     @DeleteMapping("/delete/{id}")
-    public void deleteModule(@PathVariable Long id) throws IOException{
-        moduleService.deleteModuleById(id);
+    public ResponseEntity<Void> deleteModule(@PathVariable Long id){
+        moduleService.deleteRegisterById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

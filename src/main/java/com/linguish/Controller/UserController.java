@@ -1,7 +1,9 @@
 package com.linguish.Controller;
 
-import java.io.IOException;
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,29 +26,29 @@ public class UserController {
     private final IUserService userService;
     
     @GetMapping("/find/all")
-    public List<User> findAllUsers(){
-        return userService.getUser();
+    public ResponseEntity<List<User>> findAllUsers(){
+        return new ResponseEntity<>(userService.getRegisters(), HttpStatus.OK);
     }
     
     @GetMapping("/find/{id}")
-    public User findUser(@PathVariable Long id){
-        return userService.getUserById(id);
+    public ResponseEntity<User> findUser(@PathVariable Long id){
+        return new ResponseEntity<>(userService.getRegisterById(id), HttpStatus.OK);
     }
 
     @PostMapping("/save")
-    public String saveUser(@RequestBody User user) throws IOException{
-       return userService.saveUser(user);
+    public ResponseEntity<User> saveUser(@RequestBody User user){
+       return new ResponseEntity<>(userService.saveRegister(user), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public void updateUser(@PathVariable Long id, @RequestBody User user) throws IOException{
-        userService.updateUserById(id, user);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
+        return new ResponseEntity<>(userService.updateRegisterById(id, user), HttpStatus.OK);
     }
     
-
     @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable Long id) throws IOException{
-        userService.deleteUserById(id);
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        userService.deleteRegisterById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

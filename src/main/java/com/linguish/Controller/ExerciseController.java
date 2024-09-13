@@ -1,6 +1,8 @@
 package com.linguish.Controller;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,6 @@ import com.linguish.Interface.IExercisesService;
 
 import lombok.AllArgsConstructor;
 
-import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -26,30 +27,27 @@ public class ExerciseController {
     private final IExercisesService exercisesService;
 
     @GetMapping("/find/all")
-    public List<Exercise> findAllExercises(){
-        
-        return exercisesService.getExercises();
+    public ResponseEntity<List<Exercise>> findAllExercises(){
+        return new ResponseEntity<>(exercisesService.getRegisters(), HttpStatus.OK);
     }
     
     @GetMapping("/find/{id}")
-    public Exercise findExercise(@PathVariable Long id){
-        return exercisesService.getExercisesById(id);
+    public ResponseEntity<Exercise> findExercise(@PathVariable Long id){
+        return new ResponseEntity<>(exercisesService.getRegisterById(id), HttpStatus.OK);
     }
 
     @PostMapping("/save")
-    public String saveExercise(@RequestBody Exercise exercises) throws IOException{
-        return exercisesService.saveExercises(exercises);
+    public ResponseEntity<Exercise> saveExercise(@RequestBody Exercise exercise){
+        return new ResponseEntity<>(exercisesService.saveRegister(exercise), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public void updateExercise(@PathVariable Long id, @RequestBody Exercise exercises) throws IOException{
-        exercisesService.updateExercisesById(id, exercises);
-
+    public ResponseEntity<Exercise> updateExercise(@PathVariable Long id, @RequestBody Exercise exerciseUpdated){
+        return new ResponseEntity<>(exercisesService.updateRegisterById(id, exerciseUpdated), HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")
-    public void deleteExercise(@PathVariable Long id) throws IOException{
-        exercisesService.deleteExercisesById(id);
-
+    public ResponseEntity<Void> deleteExercise(@PathVariable Long id){
+        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
 }

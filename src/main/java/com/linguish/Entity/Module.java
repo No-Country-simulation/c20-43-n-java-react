@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -19,23 +18,18 @@ public class Module {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
+    private String title;
+    
     private String description;
 
-    private Date startDate;
+    @Enumerated(EnumType.STRING)
+    private Level level;
 
-    private Date moduleCompletedDate;
+    @OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Progress> progress = new ArrayList<>();
 
-    // private List<Level> level = new ArrayList<>();
-
-    // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "module")
-    // @JsonManagedReference
-    // private List<Exercise> exercises;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "progress_id")
-    private List<Progress> progress;
+    @OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Exercise> exercises = new ArrayList<>();
 
 }
 

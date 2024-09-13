@@ -1,6 +1,5 @@
 package com.linguish.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import com.linguish.Interface.IUserService;
 import com.linguish.Repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -17,41 +17,34 @@ import lombok.AllArgsConstructor;
 public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
-    
-    @Override
-    public List<User> getUser() {
+
+    @Transactional
+    public List<User> getRegisters() {
         return userRepository.findAll();
     }
     
-    @Override
-    public User getUserById(Long id) {
+    @Transactional
+    public User getRegisterById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado en la BD"));
     }
     
-    @Override
-    public String saveUser(User user) throws IOException {
-        User newUser = userRepository.save(user);
-        if (newUser == null) {
-            throw new IllegalStateException("Error: No se pudo guardar el usuario");
-        }
-        return "Se guardo correctamente el usuario";
+    @Transactional
+    public User saveRegister(User newRegister) {
+        return userRepository.save(newRegister);
     }
     
-    @Override
-    public void updateUserById(Long id, User user) throws IOException {
+    @Transactional
+    public User updateRegisterById(Long id, User updatedRegister) {
         User updatedUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado en la BD"));
-        updatedUser.setEmail(user.getEmail());
-        updatedUser.setPassword(user.getPassword());
-        updatedUser.setUserName(user.getUserName());
-        // updatedUser.setProgressList(user.getProgressList());
-        User usuario = userRepository.save(updatedUser);
-        if (usuario == null) {
-            throw new IllegalStateException("Error: No se pudo actualizar el usuario");
-        }
+        updatedUser.setEmail(updatedRegister.getEmail());
+        updatedUser.setPassword(updatedRegister.getPassword());
+        updatedUser.setUsername(updatedRegister.getUsername());
+        updatedUser.setProgressList(updatedRegister.getProgressList());
+        return userRepository.save(updatedUser);
     }
     
-    @Override
-    public void deleteUserById(Long id) throws IOException {
+    @Transactional
+    public void deleteRegisterById(Long id) {
         User deletedUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado en la BD"));
         userRepository.delete(deletedUser);
     }
