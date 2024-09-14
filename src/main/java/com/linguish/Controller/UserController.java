@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.linguish.Entity.User;
 import com.linguish.Interface.IUserService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -25,26 +26,32 @@ public class UserController {
 
     private final IUserService userService;
     
+    @Operation(summary = "Obtener todos los usuarios", description = "Este endpoint devuelve una lista de todos los usuarios registrados.")
     @GetMapping("/find/all")
     public ResponseEntity<List<User>> findAllUsers(){
         return new ResponseEntity<>(userService.getRegisters(), HttpStatus.OK);
     }
     
+    @Operation(summary = "Obtener un usuario por su ID", description = "Este endpoint obtiene un usuario basado en su ID.")
     @GetMapping("/find/{id}")
     public ResponseEntity<User> findUser(@PathVariable Long id){
         return new ResponseEntity<>(userService.getRegisterById(id), HttpStatus.OK);
     }
 
+
+    @Operation(summary = "Crear un nuevo usuario", description = "Este endpoint permite crear un nuevo usuario proporcionando los datos requeridos.")
     @PostMapping("/save")
     public ResponseEntity<User> saveUser(@RequestBody User user){
        return new ResponseEntity<>(userService.saveRegister(user), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Actualizar un usuario por su ID", description = "Este endpoint permite actualizar la información de un usuario existente proporcionando su ID.")
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
         return new ResponseEntity<>(userService.updateRegisterById(id, user), HttpStatus.OK);
     }
     
+    @Operation(summary = "Eliminar un usuario por su ID", description = "Este endpoint elimina un usuario basado en su ID.")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.deleteRegisterById(id);
