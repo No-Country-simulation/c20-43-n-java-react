@@ -75,7 +75,7 @@ const Navbar = () => {
             <div className="flex items-center space-x-4">
               {/* <FaCog className="text-white text-2xl cursor-pointer hover:text-gray-300 transition-colors" /> */}
               <div className="relative group">
-                <span className="text-lg text-white cursor-pointer flex items-center gap-5">
+                <span className="text-lg text-white cursor-pointer hidden items-center gap-5 sm:flex">
                   {session.user?.email}
                   <img src={`${session.user?.image}`} alt="profile.png" className="h-10 w-10 rounded-full"/>
                 </span>

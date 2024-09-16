@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "antd": "^5.20.3",
+    "axios": "^1.7.7",
     "next": "14.2.7",
     "next-auth": "^4.24.7",
     "react": "^18",
+    "react-confetti": "^6.1.0",
     "react-dom": "^18",
     "styled-components": "^6.1.13"
   },
