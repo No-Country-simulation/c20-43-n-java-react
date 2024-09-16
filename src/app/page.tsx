@@ -6,10 +6,12 @@ import Loading from "@/components/Loading";
 import { LoginComponent } from "@/components/LoginComponent";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-// import Image from "next/image";
+
 
 export default function Home() {
+  const [active, setActive] = useState(false)
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -21,13 +23,15 @@ export default function Home() {
     return (
       <>
         <div>
-          <Dashboard />
+          <Dashboard setActive={setActive}/>
         </div>
       </>
     );
-  }
+  } 
 
-  if (!session) {
-    router.push("/login");
+  if(!session) {
+    return (
+      <LoginComponent/>
+    )
   }
 }

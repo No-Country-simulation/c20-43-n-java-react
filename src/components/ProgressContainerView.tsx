@@ -1,8 +1,8 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import ProgressComponent from "./ProgressComponent";
 import React from "react";
+import { ProgressComponent } from "./ProgressComponent";
 
 function ProgressContainerView() {
   const { data: session } = useSession();

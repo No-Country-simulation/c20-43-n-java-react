@@ -1,24 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Progress, Button } from "antd";
+import { useProgress } from "@/context/ProgressUserProvider";
+import { progress } from "@/app/pages";
+// Asegúrate de usar la ruta correcta para tu contexto
 
-const ProgressComponent: React.FC = () => {
-  const [percent, setPercent] = useState(0);
+export const ProgressComponent: React.FC = () => {
+  const { percent, increaseProgress, setPercent } = useProgress(); // Acceder al contexto
 
-  const increaseProgress = () => {
-    setPercent((prev) => Math.min(prev + 10, 100));
-  };
+
 
   return (
     <div className="p-3">
       <h1>Mi progreso</h1>
       <Progress percent={percent} strokeColor="#FF8C9E" className="" />
-      {/* <Button onClick={increaseProgress} className="mt-4">
-        Increase Progress
-      </Button> */}
     </div>
   );
 };
-
-export default ProgressComponent;

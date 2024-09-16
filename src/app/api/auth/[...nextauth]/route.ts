@@ -12,6 +12,7 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
+        username: { label: "username", type: "user", placeholder: "Nombre de usuario" },
         email: { label: "email", type: "email", placeholder: "test@test.com" },
         password: { label: "Password", type: "password" },
       },
@@ -33,30 +34,25 @@ const handler = NextAuth({
           },
         ];
 
-        //// Aqui conectare algun endpoint para validar usuarios del backend
-        // const res = await fetch(
-        //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
-        //   {
-        //     method: "POST",
-        //     body: JSON.stringify({
-        //       email: credentials?.email,
-        //       password: credentials?.password,
-        //     }),
-        //     headers: { "Content-Type": "application/json" },
-        //   }
-        // );
-        // const user = await res.json();
+        // Aqui conectare algun endpoint para validar usuarios del backend
+        let id;
+        const res = await fetch(
+          `https://linguish.up.railway.app/user/find/${id}`,
+          {
+            method: "GET",
+            body: JSON.stringify({
+              email: credentials?.email,
+              username: credentials?.username,
+              password: credentials?.password,
+            }),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const user = await res.json();
 
-        // if (user.error) throw user;
+        if (user.error) throw user;
 
-        // return user;
-        const user = users.find((u) => u.email === credentials?.email);
-
-        if (user && user.password === credentials?.password) {
-          return user;
-        } else {
-          return null
-        }
+        return user;
       },
     }),
   ],

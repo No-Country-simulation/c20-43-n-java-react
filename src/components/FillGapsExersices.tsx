@@ -1,52 +1,40 @@
 "use client";
-import { useSession } from "next-auth/react";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Modal, Button as AntButton } from "antd";
 import Button from "./ButtonUI";
+import { getExercisesTrueFalse } from "@/app/pages";
+import PresentModule from "./PresentModule";
+import { useSession } from "next-auth/react";
+import { useProgress } from "@/context/ProgressUserProvider";
+import Confetti from "react-confetti"; // Importar el confeti
+import { useRouter } from "next/navigation"; // Para volver al dashboard
+
+type Exercise = {
+  id: number;
+  text: string;
+  answers: string;
+  completed: boolean;
+  exerciseType: string[];
+};
+
 
 function FillGapsExercises() {
+  const { increaseProgress } = useProgress();
   const { data: session } = useSession();
   const [showContent, setShowContent] = useState<boolean>(false);
-  const [selectedWords, setSelectedWords] = useState<{ [key: string]: string }>(
-    {
-      word1: "",
-      word2: "",
-    }
-  );
-
-  // const exercises = [
-  //   {
-  //     text: "I am Michel! I liked play ___ and ___ running in the park.",
-  //     gaps: { word1: "Play", word2: "Running" },
-  //     options: ["Play", "Eat", "Running", "Jump"],
-  //   },
-  //   {
-  //     text: "She enjoys ___ and ___ at the beach.",
-  //     gaps: { word1: "Swimming", word2: "Playing volleyball" },
-  //     options: ["Swimming", "Eating", "Jumping", "Playing volleyball"],
-  //   },
-  //   // Puedes agregar más ejercicios aquí
-  // ];
-
+  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [incorrect, setIncorrect] = useState(false);
-
-  const correctAnswers = {
-    word1: "Play",
-    word2: "Running",
-  };
-
-  const handleButtonClick = (word: string, position: "word1" | "word2") => {
-    if (word === correctAnswers[position]) {
-      setSelectedWords((prev) => ({ ...prev, [position]: word }));
-      setIncorrect(false); // Correcto, no hay error
-    } else {
-      setIncorrect(true); // Respuesta incorrecta
-      setTimeout(() => {
-        setIncorrect(false);
-      }, 1000);
-    }
-  };
+  const [showConfetti, setShowConfetti] = useState(false); // Estado para el confeti
+  const router = useRouter(); // Hook para la navegación
 
   useEffect(() => {
+    const fetchData = async () => {
+      const data = await getExercisesTrueFalse();
+      setExercises(data);
+    };
+    fetchData();
+
     if (session) {
       const timer = setTimeout(() => {
         setShowContent(true);
@@ -56,64 +44,95 @@ function FillGapsExercises() {
     }
   }, [session]);
 
+  const handleButtonClick = (userAnswer: string) => {
+    const currentExercise = exercises[currentExerciseIndex];
+
+    if (currentExercise.answers === userAnswer) {
+      increaseProgress();
+      const updatedExercises = exercises.map((exercise, index) =>
+        index === currentExerciseIndex
+          ? { ...exercise, completed: true }
+          : exercise
+      );
+      setExercises(updatedExercises);
+
+      if (currentExerciseIndex < exercises.length - 1) {
+        setCurrentExerciseIndex(currentExerciseIndex + 1);
+      } else {
+        // Si se han completado todos los ejercicios, mostramos el confeti
+        setShowConfetti(true);
+      }
+    } else {
+      setIncorrect(true);
+      setTimeout(() => {
+        setIncorrect(false);
+      }, 1000);
+    }
+  };
+
+  const handleReturnToDashboard = () => {
+    router.push("/dashboard"); // Redirigir al dashboard
+  };
+
+  if (!session) {
+    return <p>Debes iniciar sesión para acceder a los ejercicios.</p>;
+  }
+
   return (
     <>
-      {session ? (
-        <>
-          {!showContent ? (
-            <div className="welcome-screen flex items-center justify-center h-screen">
-              <div className="text-center">
-                <h1 className="text-6xl text-white font-bold mb-4 animate-fadeIn">
-                  ¡Bienvenido!
-                </h1>
-                <p className="text-2xl tex-center text-gray-300 animate-fadeIn delay-500">
-                  Comencemos con este modulo.
-                  <p className="text-center">!Buena Suerte!</p>
-                </p>
-              </div>
+    {!showContent ? (
+      <PresentModule />
+    ) : (
+      <>
+        {exercises.length > 0 && (
+          <div className="flex flex-col justify-center items-center animate-slideUp">
+            <h1 className="text-4xl relative 2xl:bottom-20 xl:bottom-10 font-bold">
+              Lee con atención y acierta verdadero o falso
+            </h1>
+            <p
+              className={`text-shadow ${
+                incorrect
+                  ? "text-red-500 relative 2xl:text-3xl xl:text-2xl"
+                  : "text-[#FCDE70] relative 2xl:text-3xl xl:text-2xl "
+              }`}
+            >
+              {exercises[currentExerciseIndex]?.text}
+            </p>
+            <div className="flex items-center justify-center gap-6 p-10 relative 2xl:top-32 xl:top-20 animate-slideUp">
+              <Button onClick={() => handleButtonClick("true")}>
+                Verdadero
+              </Button>
+              <Button onClick={() => handleButtonClick("false")}>
+                Falso
+              </Button>
             </div>
-          ) : (
-            <div className="exercise-screen flex flex-col items-center justify-center h-screen ">
-              <div className="text-3xl text-center relative p-10 text-white animate-slideUp">
-                <p
-                  className={`text-shadow ${
-                    incorrect ? "text-red-500" : "text-[#FCDE70]"
-                  }`}
-                >
-                  I am Michel! I liked{" "}
-                  <span className="underline">
-                    {selectedWords.word1 || "___"}
-                  </span>{" "}
-                  and{" "}
-                  <span className="underline">
-                    {selectedWords.word2 || "___"}
-                  </span>{" "}
-                  in the park and I liked play video games in my computer gamer.
-                </p>
-              </div>
+          </div>
+        )}
 
-              <div className="flex justify-center items-center relative p-10 gap-5 animate-slideUp">
-                <Button onClick={() => handleButtonClick("Play", "word1")}>
-                  Play
-                </Button>
-                <Button onClick={() => handleButtonClick("Eat", "word1")}>
-                  Eat
-                </Button>
-                <Button onClick={() => handleButtonClick("Running", "word2")}>
-                  Running
-                </Button>
-                <Button onClick={() => handleButtonClick("Jump", "word2")}>
-                  Jump
-                </Button>
-              </div>
-            </div>
-          )}
-        </>
-      ) : (
-        <></>
-      )}
-    </>
+        {/* Modal para mostrar el confeti al finalizar */}
+        <Modal
+          title="¡Felicidades!"
+          visible={showConfetti}
+          onOk={handleReturnToDashboard} // Cerrar modal y redirigir al dashboard
+          onCancel={handleReturnToDashboard}
+          footer={[
+            <AntButton key="submit" type="primary" onClick={handleReturnToDashboard}>
+              Volver al Dashboard
+            </AntButton>,
+          ]}
+        >
+          <div className="flex flex-col items-center">
+            <Confetti width={window.innerWidth} height={window.innerHeight} />
+            <h2 className="text-3xl font-bold mt-4">
+              ¡Has completado todos los ejercicios!
+            </h2>
+          </div>
+        </Modal>
+      </>
+    )}
+  </>
   );
 }
 
 export default FillGapsExercises;
+
