@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,16 +16,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userName;
-
-    private String email;
+    @Column(name = "user_name")
+    private String username;
 
     private String password;
+
+    private String email;
 
     private Date registerDate;
 
     // @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     // @JsonManagedReference
     // private List<Progress> progressList;
+
 
 }

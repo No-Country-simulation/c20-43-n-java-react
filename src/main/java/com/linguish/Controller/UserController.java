@@ -2,6 +2,9 @@ package com.linguish.Controller;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.linguish.DTO.LoginRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,11 +45,20 @@ public class UserController {
     public void updateUser(@PathVariable Long id, @RequestBody User user) throws IOException{
         userService.updateUserById(id, user);
     }
-    
 
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable Long id) throws IOException{
         userService.deleteUserById(id);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest){
+        boolean isAuthenticated = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
+
+        if (isAuthenticated) {
+            return ResponseEntity.ok("Login successful");
+        } else {
+            return ResponseEntity.status(401).body("Invalid credentials");
+        }
+    }
 }

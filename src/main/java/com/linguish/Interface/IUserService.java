@@ -17,4 +17,5 @@ public interface IUserService {
 
     void deleteUserById(Long id) throws IOException;
 
+    boolean login(String userName, String password);
 }

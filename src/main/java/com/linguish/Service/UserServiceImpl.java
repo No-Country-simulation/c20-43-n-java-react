@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
         User updatedUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado en la BD"));
         updatedUser.setEmail(user.getEmail());
         updatedUser.setPassword(user.getPassword());
-        updatedUser.setUserName(user.getUserName());
+        updatedUser.setUsername(user.getUsername());
         // updatedUser.setProgressList(user.getProgressList());
         User usuario = userRepository.save(updatedUser);
         if (usuario == null) {
@@ -54,5 +54,11 @@ public class UserServiceImpl implements IUserService {
     public void deleteUserById(Long id) throws IOException {
         User deletedUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado en la BD"));
         userRepository.delete(deletedUser);
+    }
+
+    public boolean login(String username, String password) {
+        User user = userRepository.findByUsername(username);
+
+        return user != null && user.getPassword().equals(password);
     }
 }
