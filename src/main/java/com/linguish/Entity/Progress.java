@@ -5,11 +5,17 @@ import lombok.*;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
 @Table(name = "progress")
+@EntityListeners(AuditingEntityListener.class)
 public class Progress {
 
     @Id
@@ -20,19 +26,24 @@ public class Progress {
     
     private Boolean isCompleted;
 
+    @Transient
+    private Long moduleId;
+
+    @Transient
+    private Long userId;
+
+    @LastModifiedDate
     private Date lastUpdated;
 
     @ManyToOne()
-    // @JsonBackReference
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
-    public void updateProgress(double newPercentage) {
-        this.percentageCompleted = newPercentage;
-        if (newPercentage >= 100.0) {
-            this.isCompleted = true;
-        }
-        this.lastUpdated = new Date();
-    }
+    @ManyToOne()
+    @JoinColumn(name = "module_id")
+    @JsonIgnore
+    private Module module;
+
 }
 

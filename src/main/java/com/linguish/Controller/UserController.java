@@ -1,9 +1,12 @@
 package com.linguish.Controller;
 
-import java.io.IOException;
 import java.util.List;
 
+<<<<<<< HEAD
 import com.linguish.DTO.LoginRequest;
+=======
+import org.springframework.http.HttpStatus;
+>>>>>>> ecf9aa84f0b9346f8305c310dde50ba4117aa2e4
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.linguish.Entity.User;
 import com.linguish.Interface.IUserService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -26,29 +30,40 @@ public class UserController {
 
     private final IUserService userService;
     
+    @Operation(summary = "Obtener todos los usuarios", description = "Este endpoint devuelve una lista de todos los usuarios registrados.")
     @GetMapping("/find/all")
-    public List<User> findAllUsers(){
-        return userService.getUser();
+    public ResponseEntity<List<User>> findAllUsers(){
+        return new ResponseEntity<>(userService.getRegisters(), HttpStatus.OK);
     }
     
+    @Operation(summary = "Obtener un usuario por su ID", description = "Este endpoint obtiene un usuario basado en su ID.")
     @GetMapping("/find/{id}")
-    public User findUser(@PathVariable Long id){
-        return userService.getUserById(id);
+    public ResponseEntity<User> findUser(@PathVariable Long id){
+        return new ResponseEntity<>(userService.getRegisterById(id), HttpStatus.OK);
     }
 
+
+    @Operation(summary = "Crear un nuevo usuario", description = "Este endpoint permite crear un nuevo usuario proporcionando los datos requeridos.")
     @PostMapping("/save")
-    public String saveUser(@RequestBody User user) throws IOException{
-       return userService.saveUser(user);
+    public ResponseEntity<User> saveUser(@RequestBody User user){
+       return new ResponseEntity<>(userService.saveRegister(user), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Actualizar un usuario por su ID", description = "Este endpoint permite actualizar la información de un usuario existente proporcionando su ID.")
     @PutMapping("/update/{id}")
-    public void updateUser(@PathVariable Long id, @RequestBody User user) throws IOException{
-        userService.updateUserById(id, user);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
+        return new ResponseEntity<>(userService.updateRegisterById(id, user), HttpStatus.OK);
     }
+<<<<<<< HEAD
 
+=======
+    
+    @Operation(summary = "Eliminar un usuario por su ID", description = "Este endpoint elimina un usuario basado en su ID.")
+>>>>>>> ecf9aa84f0b9346f8305c310dde50ba4117aa2e4
     @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable Long id) throws IOException{
-        userService.deleteUserById(id);
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        userService.deleteRegisterById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/login")
