@@ -1,12 +1,8 @@
 package com.linguish.Controller;
 
 import java.util.List;
-
-<<<<<<< HEAD
 import com.linguish.DTO.LoginRequest;
-=======
 import org.springframework.http.HttpStatus;
->>>>>>> ecf9aa84f0b9346f8305c310dde50ba4117aa2e4
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,12 +50,8 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
         return new ResponseEntity<>(userService.updateRegisterById(id, user), HttpStatus.OK);
     }
-<<<<<<< HEAD
-
-=======
     
     @Operation(summary = "Eliminar un usuario por su ID", description = "Este endpoint elimina un usuario basado en su ID.")
->>>>>>> ecf9aa84f0b9346f8305c310dde50ba4117aa2e4
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.deleteRegisterById(id);
@@ -76,4 +68,5 @@ public class UserController {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
     }
+
 }

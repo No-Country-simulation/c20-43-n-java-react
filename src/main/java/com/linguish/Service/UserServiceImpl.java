@@ -36,22 +36,19 @@ public class UserServiceImpl implements IUserService {
     @Transactional
     public User updateRegisterById(Long id, User updatedRegister) {
         User updatedUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado en la BD"));
-<<<<<<< HEAD
-        updatedUser.setEmail(user.getEmail());
-        updatedUser.setPassword(user.getPassword());
-        updatedUser.setUsername(user.getUsername());
+        updatedUser.setEmail(updatedRegister.getEmail());
+        updatedUser.setPassword(updatedRegister.getPassword());
+        updatedUser.setUsername(updatedRegister.getUsername());
         // updatedUser.setProgressList(user.getProgressList());
         User usuario = userRepository.save(updatedUser);
         if (usuario == null) {
             throw new IllegalStateException("Error: No se pudo actualizar el usuario");
         }
-=======
         updatedUser.setEmail(updatedRegister.getEmail());
         updatedUser.setPassword(updatedRegister.getPassword());
         updatedUser.setUsername(updatedRegister.getUsername());
         updatedUser.setProgressList(updatedRegister.getProgressList());
         return userRepository.save(updatedUser);
->>>>>>> ecf9aa84f0b9346f8305c310dde50ba4117aa2e4
     }
     
     @Transactional
