@@ -5,47 +5,45 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@Builder
+@Data
+@Entity
+@Table(name = "progress")
+@EntityListeners(AuditingEntityListener.class)
 public class Progress {
 
     @Id
-    @Column(name = "progress_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long progressId;
+    private Long id;
 
-    // Relación con el usuario que está progresando
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    // Relación con el módulo en el que el usuario está progresando
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "module_id", nullable = false)
-    private Module module;
-
-    // Porcentaje de progreso en el módulo (0.0 a 100.0)
-    @Column(name = "percentage_completed", nullable = false)
     private Double percentageCompleted;
-
-    // Booleano para indicar si el módulo ha sido completado
-    @Column(name = "is_completed", nullable = false)
+    
     private Boolean isCompleted;
 
-    // Fecha de la última actualización de progreso
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_updated", nullable = false)
+    @Transient
+    private Long moduleId;
+
+    @Transient
+    private Long userId;
+
+    @LastModifiedDate
     private Date lastUpdated;
 
-    public void updateProgress(double newPercentage) {
-        this.percentageCompleted = newPercentage;
-        if (newPercentage >= 100.0) {
-            this.isCompleted = true;
-        }
-        this.lastUpdated = new Date();
-    }
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
+    @ManyToOne()
+    @JoinColumn(name = "module_id")
+    @JsonIgnore
+    private Module module;
+
 }
+
