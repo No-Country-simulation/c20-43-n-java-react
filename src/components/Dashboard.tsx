@@ -20,21 +20,21 @@ const Dashboard = ({setActive}: PropsModal) => {
   return (
     <>
       <div className="relative 2xl:top-0 xl:top-16">
-        <div className="text-center relative 2xl:bottom-22 xl:bottom-28 xl:top-1">
-          <h1 className="text-3xl font-semibold mb-3 animate-fadeIn">
+        <div className="text-center relative 2xl:bottom-10  xl:bottom-20 ">
+          <h1 className="text-3xl font-semibold mb-3 text-gray-200 animate-fadeIn">
             Modulos
           </h1>
           <div className="text-start">
-            <p className="text-[20px] font-light mb-2 animate-fadeIn">
+            <p className="text-[20px] font-light text-gray-300 mb-2 animate-fadeIn">
               Comienza los niveles desde principiante hasta un nivel avanzado!
             </p>
-            <p className="text-[20px] font-light mb-2 animate-fadeIn">
+            <p className="text-[20px] font-light mb-2 text-gray-300 animate-fadeIn">
               Ve desbloqueando modulos.
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col gap-5 relative 2xl:top-20 xl:top-28" >
+        <div className="flex flex-col gap-5 relative 2xl:top-20 xl:top-5" >
           <div className="bg-gray-950 text-white border-purple-300 border bg-opacity-50 p-8 rounded-xl shadow-lg relative 2xl:bottom-10 xl:bottom-20">
             <Link href={"/lecture"}>
               <strong>Modulo 1</strong>

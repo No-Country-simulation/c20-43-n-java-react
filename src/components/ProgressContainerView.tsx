@@ -10,7 +10,7 @@ function ProgressContainerView() {
   return (
     <>
       {session ? (
-        <div className=" bg-gradient-to-r bg-pink-300 backdrop-blur-sm bg-opacity-50  p-8 rounded-lg shadow-lg max-w-screen-lg relative 2xl:top-8 xl:top-12 sm:w-[700px] w-[800px] h-20 pt-0">
+        <div className=" bg-pink/60 border-purple-300 border text-white backdrop-blur-lg  p-2 rounded-lg shadow-lg relative 2xl:top-8 xl:top-12 w-[400px] h-20 pt-0">
           <ProgressComponent />
         </div>
       ) : (

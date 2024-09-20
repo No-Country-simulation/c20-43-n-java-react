@@ -14,21 +14,16 @@ const Navbar = () => {
 
   return (
     <>
-      {/* {session ? (
-       
-      ) : (
-        <></>
-      )} */}{" "}
-      <nav className="flex justify-center items-center bg-pink-300 backdrop-blur-sm bg-opacity-30 shadow-lg fixed top-0 h-20 left-0 w-full">
-        <div className="container mx-auto px-6 py-3 flex justify-between items-center">
+
+        <div className="container mx-auto px-6 py-3 flex flex-col justify-center items-center sm:flex-row sm:justify-between pt-5">
           <a
             href="/"
-            className="text-3xl font-bold text-white  text-shadow"
+            className="text-3xl font-bold text-white text-shadow text-center sm:text-left"
           >
             Linguish
           </a>
 
-          <div className="hidden md:flex space-x-6">
+          <div className="hidden md:flex space-x-6 ">
             <a
               href="/dashboard"
               className="text-lg text-white hover:text-gray-300 transition-colors "
@@ -97,12 +92,10 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <span className="flex justify-center items-center w-32 h-9 bg-pink-100 text-white rounded-md  bg-opacity-20">
-              <a href="/login">Iniciar Sesion</a>
-            </span>
+            <></>
           )}
         </div>
-      </nav>
+      {/* </nav> */}
     </>
   );
 };

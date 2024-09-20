@@ -12,47 +12,39 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "username", type: "user", placeholder: "Nombre de usuario" },
         email: { label: "email", type: "email", placeholder: "test@test.com" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        const users = [
-          {
-            id: "1",
-            name: "usuarioPrueba",
-            email: "jsmith@example.com",
-            username: "UsuarioPrueba",
-            password: "password123",
-          },
-          {
-            id: "2",
-            name: "maria",
-            email: "maria@example.com",
-            username: "maria",
-            password: "mypassword",
-          },
-        ];
-
+      async authorize(credentials, req) {
+        const users = {
+          id: "1",
+          name: "usuarioPrueba",
+          email: "jsmith@example.com",
+          username: "UsuarioPrueba",
+          password: "password123",
+        };
+        if(users) {
+          return users
+        } else {
+          return null
+        }
         // Aqui conectare algun endpoint para validar usuarios del backend
-        let id;
-        const res = await fetch(
-          `https://linguish.up.railway.app/user/find/${id}`,
-          {
-            method: "GET",
-            body: JSON.stringify({
-              email: credentials?.email,
-              username: credentials?.username,
-              password: credentials?.password,
-            }),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        const user = await res.json();
+        // const res = await fetch(
+        //   `https://linguish.up.railway.app/user/find/${id}`,
+        //   {
+        //     method: "GET",
+        //     body: JSON.stringify({
+        //       email: credentials?.email,
+        //       password: credentials?.password,
+        //     }),
+        //     headers: { "Content-Type": "application/json" },
+        //   }
+        // );
+        // const user = await res.json();
 
-        if (user.error) throw user;
+        // if (user.error) throw user;
 
-        return user;
+        // return user;
       },
     }),
   ],

@@ -7,9 +7,11 @@ import React from "react";
 function page() {
   return (
     <div>
-      <h1>Seguro que quieres Cerrar session?    </h1>
-      <div className="flex flex-col justify-center items-center">
-        <button onClick={() => signOut({callbackUrl: '/'})}>Cerrar</button>
+      <h1 className="text-gray-300 ">Seguro que quieres Cerrar session? </h1>
+      <div className="flex mt-4 gap-3 justify-center items-center">
+        <Link href="/">
+          <button onClick={() => signOut({ callbackUrl: "/" })}>Cerrar</button>
+        </Link>
         <Link href="/dashboard">
           <button>Volver</button>
         </Link>
