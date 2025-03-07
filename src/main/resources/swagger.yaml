@@ -1,0 +1,921 @@
+openapi: 3.0.1
+info:
+  title: API de inglés
+  description: La siguiente api muestra los endpoints a trabajar sobre el sistema
+  version: 1.0.0
+servers:
+- url: https://linguish.up.railway.app
+tags:
+- name: usuarios
+  description: Este endpoint maneja toda la información relacionada con la información de los usarios.
+  
+paths:
+
+#USER
+
+  /user/find/{id}:
+    get:
+      tags:
+        - usuarios
+      summary: Obtiene la información de un usuario por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del cliente a obtener.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: (OK) Información del usuario obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessUserGet'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /user/find/all:
+    get:
+      tags:
+        - usuarios
+      summary: Busca todos los usuarios en la BD.
+      responses:
+        200:
+          description: (OK) Información de los usuarios obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessUsersGet'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+        
+  /user/save:
+    post:
+      tags:
+        - usuarios
+      summary: Inserta la información de un nuevo usuario a la BD.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyUserPost'
+      responses:
+        200:
+          description: (OK) Usuario creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessUserPost'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /user/update/{id}:
+    put:
+      tags:
+        - usuarios
+      summary: Actualiza los datos de un usuario por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del usuario a actualizar.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyUserPut'
+      responses:
+        200:
+          description: (OK) Usuario actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessUserUpdate'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /user/delete/{id}:
+    delete:
+      tags:
+        - usuarios
+      summary: Elimina los datos de un usuario por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del cliente a eliminar.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: (OK) Información del cliente obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessUserDeleted'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+#MODULE
+          
+  /module/find/{id}:
+    get:
+      tags:
+        - modulos
+      summary: Obtiene la información de un módulo por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del módulo a obtener.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: (OK) Información del módulo obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessModuleGet'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /module/find/all:
+    get:
+      tags:
+        - modulos
+      summary: Busca todos los módulos en la BD.
+      responses:
+        200:
+          description: (OK) Información de los módulos obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessModulesGet'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+        
+  /module/save:
+    post:
+      tags:
+        - modulos
+      summary: Inserta la información de un nuevo módulo a la BD.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyModulePost'
+      responses:
+        200:
+          description: (OK) Módulo creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessModulePost'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /module/update/{id}:
+    put:
+      tags:
+        - modulos
+      summary: Actualiza los datos de un módulo por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del módulo a actualizar.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyModulePut'
+      responses:
+        200:
+          description: (OK) Módulo actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessModuleUpdate'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /module/delete/{id}:
+    delete:
+      tags:
+        - modulos
+      summary: Elimina los datos de un módulo por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del módulo a eliminar.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: (OK) Módulo eliminado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessModuleDeleted'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+#EXERCISE
+  
+  /exercise/find/{id}:
+    get:
+      tags:
+        - ejercicios
+      summary: Obtiene la información de un ejercicio por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del ejercicio a obtener.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: (OK) Información del ejercicio obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessExerciseGet'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /exercise/find/all:
+    get:
+      tags:
+        - ejercicios
+      summary: Busca todos los ejercicios en la BD.
+      responses:
+        200:
+          description: (OK) Información de los ejercicios obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessExercisesGet'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+        
+  /exercise/save:
+    post:
+      tags:
+        - ejercicios
+      summary: Inserta la información de un nuevo ejercicio a la BD.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyExercisePost'
+      responses:
+        200:
+          description: (OK) Ejercicio creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessExercisePost'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /exercise/update/{id}:
+    put:
+      tags:
+        - ejercicios
+      summary: Actualiza los datos de un ejercicio por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del ejercicio a actualizar.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyExercisePut'
+      responses:
+        200:
+          description: (OK) Ejercicio actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessExerciseUpdate'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /exercise/delete/{id}:
+    delete:
+      tags:
+        - ejercicios
+      summary: Elimina los datos de un ejercicio por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del ejercicio a eliminar.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: (OK) Ejercicio eliminado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessExerciseDeleted'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+#PROGRESS
+
+  /progress/find/{id}:
+    get:
+      tags:
+        - progreso
+      summary: Obtiene la información de un progreso por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del progreso a obtener.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: (OK) Información del progreso obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessProgressGet'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /progress/find/all:
+    get:
+      tags:
+        - progreso
+      summary: Busca todos los registros de progreso en la BD.
+      responses:
+        200:
+          description: (OK) Información de los progresos obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessProgressesGet'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+        
+  /progress/save:
+    post:
+      tags:
+        - progreso
+      summary: Inserta un nuevo registro de progreso en la BD.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyProgressPost'
+      responses:
+        200:
+          description: (OK) Registro de progreso creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessProgressPost'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /progress/update/{id}:
+    put:
+      tags:
+        - progreso
+      summary: Actualiza los datos de un progreso por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del progreso a actualizar.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyProgressPut'
+      responses:
+        200:
+          description: (OK) Registro de progreso actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessProgressUpdate'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /progress/delete/{id}:
+    delete:
+      tags:
+        - progreso
+      summary: Elimina un registro de progreso por su id.
+      parameters:
+      - name: id
+        in: path
+        description: Identificador del progreso a eliminar.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: (OK) Registro de progreso eliminado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessProgressDeleted'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+          
+components:
+
+  responses:
+    Unauthorized:
+      description: (Unauthorized) no hay autorización para llamar al servicio
+    NotFound:
+      description: (NotFound) no se encontró la información
+    BadRequest:
+      description: (BadRequest) los datos enviados son incorrectos o hay datos obligatorios no enviados
+    ServerError:
+      description: Error en el servidor
+
+  schemas:
+
+#USER
+  
+    SuccessUserGet:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Nombre de usuario.
+        email:
+          type: string
+          description: Email del usuario.
+          
+    SuccessUsersGet:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuccessUserGet'
+          
+    BodyUserPost:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Nombre de usuario.
+        email:
+          type: string
+          description: Email del usuario.
+        password:
+          type: string
+          description: Contraseña del usuario.
+          
+    SuccessUserPost:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la llamada al servicio fue exitosa.
+        idUsuario:
+          type: integer
+          enum: [222]
+          description: Bandera que le corresponde al usuario.
+          
+    BodyUserPut:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Nombre de usuario.
+        email:
+          type: string
+          description: Email del usuario.
+        password:
+          type: string
+          description: Contraseña del usuario.
+          
+    SuccessUserUpdate:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la actualización del usuario fue exitosa.
+        idUsuario:
+          type: integer
+          enum: [222]
+          description: ID del usuario actualizado.
+          
+    SuccessUserDeleted:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la eliminación del usuario fue exitosa.
+        idUsuario:
+          type: integer
+          enum: [222]
+          description: ID del usuario eliminado.
+          
+#MODULE
+
+    SuccessModuleGet:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre del módulo.
+        level:
+          type: string
+          description: Nivel del módulo.
+          
+    SuccessModulesGet:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuccessModuleGet'
+          
+    BodyModulePost:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre del módulo.
+        description:
+          type: string
+          description: Descripción del módulo.
+        level:
+          type: string
+          description: Nivel del módulo.
+        progress:
+          type: string
+          description: Progreso en el módulo.
+        exercises:
+          type: string
+          description: Ejercicios dentro del módulo.
+          
+    SuccessModulePost:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la creación del módulo fue exitosa.
+        idModule:
+          type: integer
+          description: ID del módulo creado.
+          
+    BodyModulePut:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre del módulo.
+        description:
+          type: string
+          description: Descripción del módulo.
+        level:
+          type: string
+          description: Nivel del módulo.
+        progress:
+          type: string
+          description: Progreso en el módulo.
+        exercises:
+          type: string
+          description: Ejercicios dentro del módulo.
+        
+    SuccessModuleUpdate:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la actualización del módulo fue exitosa.
+        idModule:
+          type: integer
+          description: ID del módulo actualizado.
+          
+    SuccessModuleDeleted:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la eliminación del módulo fue exitosa.
+        idModule:
+          type: integer
+          description: ID del módulo eliminado.
+        
+#EXERCISE
+
+    SuccessExerciseGet:
+      type: object
+      properties:
+        completed:
+          type: boolean
+          description: Indica si el ejercicio está completo o no.
+        exerciseType:
+          type: string
+          description: Tipo del ejercicio.
+          
+    SuccessExercisesGet:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuccessExerciseGet'
+          
+    BodyExercisePost:
+      type: object
+      properties:
+        completed:
+          type: boolean
+          description: Indica si el ejercicio está completo o no.
+        exerciseType:
+          type: string
+          description: Tipo del ejercicio.
+          
+    SuccessExercisePost:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la llamada al servicio fue exitosa.
+        idEjercicio:
+          type: integer
+          description: ID del ejercicio creado.
+          
+    BodyExercisePut:
+      type: object
+      properties:
+        completed:
+          type: boolean
+          description: Indica si el ejercicio está completo o no.
+        exerciseType:
+          type: string
+          description: Tipo del ejercicio.
+          
+    SuccessExerciseUpdate:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la actualización del ejercicio fue exitosa.
+        idEjercicio:
+          type: integer
+          description: ID del ejercicio actualizado.
+          
+    SuccessExerciseDeleted:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la eliminación del ejercicio fue exitosa.
+        idEjercicio:
+          type: integer
+          description: ID del ejercicio eliminado.
+          
+#PROGRESS
+
+    SuccessProgressGet:
+      type: object
+      properties:
+        percentageCompleted:
+          type: string
+          description: Muestra el porcentaje de avance.
+        isCompleted:
+          type: boolean
+          description: Muestra si está completo totalmente o no.
+        moduleId:
+          type: string
+          description: Id del módulo al que pertenece.
+        userId:
+          type: string
+          description: Id del usuario al que pertenece. 
+        lastUpdated:
+          type: string
+          description: última modificación.
+          
+    SuccessProgressesGet:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuccessProgressGet'
+          
+    BodyProgressPost:
+      type: object
+      properties:
+        percentageCompleted:
+          type: string
+          description: Muestra el porcentaje de avance.
+        isCompleted:
+          type: boolean
+          description: Muestra si está completo totalmente o no.
+        moduleId:
+          type: string
+          description: Id del módulo al que pertenece.
+        userId:
+          type: string
+          description: Id del usuario al que pertenece. 
+        lastUpdated:
+          type: string
+          description: última modificación.
+          
+    SuccessProgressPost:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la llamada al servicio fue exitosa.
+        idProgreso:
+          type: integer
+          description: ID del registro de progreso creado.
+          
+    BodyProgressPut:
+      type: object
+      properties:
+        percentageCompleted:
+          type: string
+          description: Muestra el porcentaje de avance.
+        isCompleted:
+          type: boolean
+          description: Muestra si está completo totalmente o no.
+        moduleId:
+          type: string
+          description: Id del módulo al que pertenece.
+        userId:
+          type: string
+          description: Id del usuario al que pertenece. 
+        lastUpdated:
+          type: string
+          description: última modificación.
+          
+    SuccessProgressUpdate:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la actualización del registro de progreso fue exitosa.
+        idProgreso:
+          type: integer
+          description: ID del registro de progreso actualizado.
+          
+    SuccessProgressDeleted:
+      type: object
+      properties:
+        response:
+          type: integer
+          enum: [1]
+          description: Bandera que indica si la eliminación del registro de progreso fue exitosa.
+        idProgreso:
+          type: integer
+          description: ID del registro de progreso eliminado.
